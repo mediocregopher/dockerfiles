@@ -1,0 +1,14 @@
+[Unit]
+Description=redis-cluster
+After=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker create --name redis-cluster-%i-data mediocregopher/redis true
+ExecStartPre=-/usr/bin/docker start redis-cluster-%i-data
+ExecStartPre=-/usr/bin/docker kill redis-cluster-%i
+ExecStart=/usr/bin/docker run --name redis-cluster-%i --rm --volumes-from redis-cluster-%i-data mediocregopher/redis
+ExecStop=/usr/bin/docker stop redis-cluster-%i
+
+#[X-Fleet]
+#Conflicts=redis-cluster@*.service
