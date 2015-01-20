@@ -9,6 +9,7 @@ RUN tar xf redis.tar.gz && \
     make && \
     make PREFIX=/usr install && \
     cp redis.conf sentinel.conf /etc && \
+    cp src/redis-trib.rb /usr/bin && \
     cd / && \
     rm -rf /tmp/redis*
 
