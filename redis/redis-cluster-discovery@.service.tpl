@@ -1,7 +1,9 @@
 [Unit]
 Description=redis-cluster-discovery-%i
 BindsTo=redis-cluster@%i.service
+After=redis-cluster@%i.service
 After=etcd.service
+After=docker.service
 
 [Service]
 Environment=ETCD_DIR=_ETCD_DIR PORT_OFFSET=_PORT_OFFSET
